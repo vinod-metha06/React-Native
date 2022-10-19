@@ -9,7 +9,7 @@ function ProductListing() {
   const [data, setData] = useState([]);
 
   useEffect(function () {
-    axios.get("http://localhost:3000/products").then((response) => {
+    axios.get("https://vinod-metha06.github.io/json/db.json").then((response) => {
       console.log(response.data);
       setData(response.data);
     });
