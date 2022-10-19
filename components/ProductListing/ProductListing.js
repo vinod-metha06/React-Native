@@ -1,26 +1,25 @@
-import { StyleSheet,View, Text, FlatList, Button } from "react-native";
+import { useEffect, useState } from "react";
+import { View, Text, FlatList } from "react-native";
 
-function ProductItem(props) {
+import ProductItem from "./ProductItem";
 
-  const { item} = props;
-  const { name, rating } = item;
-
-  return (
-    <View style={styles.container}>
-      <Text>{name}{"\n"}{`rating: ${rating}`}</Text>
-      <Button style={{height:20}} onPress={()=>{alert("Hello")}} title="Buy"></Button>
-      
-    </View>
-  );
-}
+import axios from "axios";
 
 function ProductListing() {
-  const products = [{ name: "Macbook", rating: 4, id: 1 },{ name: "Dell", rating: 5, id: 2 },{ name: "HP", rating: 4, id: 3 },{ name: "Dell", rating: 5, id: 4 },{ name: "HP", rating: 4, id: 5 },{ name: "Dell", rating: 5, id: 6 },{ name: "HP", rating: 4, id: 7 }];
+  const [data, setData] = useState([]);
+
+  useEffect(function () {
+    axios.get("http://localhost:3000/products").then((response) => {
+      console.log(response.data);
+      setData(response.data);
+    });
+  }, []);
+
   return (
     <View>
       <FlatList
-      bounces={true}
-        data={products}
+        bounces={true}
+        data={data}
         renderItem={ProductItem}
         keyExtractor={(item) => {
           return item.id;
@@ -29,27 +28,5 @@ function ProductListing() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-    container: {
-    //   flex: 1,
-      flexDirection:"column",
-      height:150,
-      width:350,
-      padding:20,
-      margin:20,
-      borderRadius:20,
-      backgroundColor: 'yellow',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    bt:{
-        height:40,
-        width:200,
-        padding:4,
-        margin:4,
-        borderRadius:80,
-    }
-  });
 
 export default ProductListing;

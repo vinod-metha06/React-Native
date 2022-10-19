@@ -7,7 +7,7 @@ export default function App() {
     <View >
       {/* <Text style={{fontSize:20,color:'yellow',}}>Hi,I'm Vinod Metha</Text> */}
       <ProductListing/>
-      <StatusBar style="auto" />
+      <StatusBar style={{}} />
     </View>
   );
 }
